@@ -29,6 +29,8 @@
 import { computed, defineComponent } from 'vue';
 import Temporizador from "./Temporizador.vue";
 import { useStore } from "@/store";
+import { NOTIFICAR } from '@/store/tipo-mutacoes';
+import { INotificacao, TipoNotificacao } from '@/interfaces/INotificacao';
 
 export default defineComponent({
     name: 'Formulario',
@@ -44,6 +46,21 @@ export default defineComponent({
     },
     methods: {
         finalizarTarefa(tempoEmSegundos : number) : void {
+            if (!this.idProjeto) {
+                this.store.commit(NOTIFICAR, {
+                    titulo: 'Projeto inváliado',
+                    texto: 'Deve ser selecionada projeto para criar uma nova tarefa',
+                    tipo: TipoNotificacao.FALHA
+                } as INotificacao);
+                return;
+            }
+            if (this.descricao === '') {
+                this.store.commit(NOTIFICAR, {
+                    titulo: 'Descrição da tarefa',
+                    texto: 'A tarefa foi salva sem descrição',
+                    tipo: TipoNotificacao.ATENCAO
+                } as INotificacao);
+            }
             this.$emit('aoSalvarTarefa', {
                 descricao: this.descricao,
                 tempoEmSegundos: tempoEmSegundos,
@@ -55,13 +72,14 @@ export default defineComponent({
     setup () {
         const store = useStore();
         return {
+            store,
             projetos: computed(() => store.state.projetos)
         }
     }
 });
 </script>
 
-<style>
+<style scoped>
 .formulario {
     background: var(--bg-primario);
     color: var(--texto-primario);
