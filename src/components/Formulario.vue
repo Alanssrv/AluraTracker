@@ -1,5 +1,5 @@
 <template>
-    <div class="box formulario">
+    <div class="box">
         <div class="columns">
             <div class="column is-6" role="form" aria-label="Formulário para criação de uma nova tarefa">
                 <input type="text" class="input" placeholder="Qual tarefa você deseja iniciar?" v-model="descricao">
@@ -29,8 +29,8 @@
 import { computed, defineComponent } from 'vue';
 import Temporizador from "./Temporizador.vue";
 import { useStore } from "@/store";
-import { NOTIFICAR } from '@/store/tipo-mutacoes';
-import { INotificacao, TipoNotificacao } from '@/interfaces/INotificacao';
+import useNotificar from '../hooks/notificador';
+import { TipoNotificacao } from '@/interfaces/INotificacao';
 
 export default defineComponent({
     name: 'Formulario',
@@ -46,21 +46,12 @@ export default defineComponent({
     },
     methods: {
         finalizarTarefa(tempoEmSegundos : number) : void {
-            if (!this.idProjeto) {
-                this.store.commit(NOTIFICAR, {
-                    titulo: 'Projeto inváliado',
-                    texto: 'Deve ser selecionada projeto para criar uma nova tarefa',
-                    tipo: TipoNotificacao.FALHA
-                } as INotificacao);
-                return;
-            }
-            if (this.descricao === '') {
-                this.store.commit(NOTIFICAR, {
-                    titulo: 'Descrição da tarefa',
-                    texto: 'A tarefa foi salva sem descrição',
-                    tipo: TipoNotificacao.ATENCAO
-                } as INotificacao);
-            }
+            if (!this.idProjeto)
+                this.notificar('Projeto', 'A atividade foi salva sem projeto definido', TipoNotificacao.ATENCAO);
+
+            if (this.descricao === '')
+                this.notificar('Descrição da tarefa', 'A tarefa foi salva sem descrição', TipoNotificacao.ATENCAO);
+            
             this.$emit('aoSalvarTarefa', {
                 descricao: this.descricao,
                 tempoEmSegundos: tempoEmSegundos,
@@ -71,7 +62,9 @@ export default defineComponent({
     },
     setup () {
         const store = useStore();
+        const { notificar } = useNotificar();
         return {
+            notificar,
             store,
             projetos: computed(() => store.state.projetos)
         }
@@ -79,8 +72,8 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-.formulario {
+<style>
+.box {
     background: var(--bg-primario);
     color: var(--texto-primario);
 }

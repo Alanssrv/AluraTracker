@@ -1,6 +1,6 @@
 <template>
     <div class="is-flex is-align-items-center is-justify-content-space-between">
-        <Cronometro :tempo-em-segundos="tempoEmSegundos"/>
+        <Cronometro class="temp" :tempo-em-segundos="tempoEmSegundos"/>
         <Botao
             :icone="'fas fa-play'"
             :texto="'play'"
@@ -53,5 +53,9 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.temp {
+    background: var(--bg-primario);
+    color: var(--texto-primario);
 
+}
 </style>

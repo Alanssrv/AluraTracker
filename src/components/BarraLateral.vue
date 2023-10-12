@@ -3,9 +3,9 @@
         <h1>
             <img src="../assets/logo.png" alt="Alura Tracker">
         </h1>
-        <button class="button" @click="alterarTema">
+        <!-- <button class="button" @click="alterarTema">
           {{ textoBotao }}
-        </button>
+        </button> -->
         <nav class="panel mt-5">
           <ul>
             <li>
