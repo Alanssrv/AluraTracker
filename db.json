@@ -5,5 +5,15 @@
       "nome": "Alura Tracker"
     }
   ],
-  "tarefas": []
+  "tarefas": [
+    {
+      "descricao": "Vuex",
+      "tempoEmSegundos": 108,
+      "projeto": {
+        "id": 1,
+        "nome": "Alura Tracker"
+      },
+      "id": 2
+    }
+  ]
 }

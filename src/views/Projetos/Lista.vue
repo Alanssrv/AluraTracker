@@ -58,7 +58,7 @@ export default defineComponent({
         return {
             notificar,
             store,
-            projetos: computed(() => store.state.projetos)
+            projetos: computed(() => store.state.projeto.projetos)
         }
     }
 });
