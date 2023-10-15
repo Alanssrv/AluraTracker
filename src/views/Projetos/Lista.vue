@@ -40,19 +40,20 @@
 import { computed, defineComponent } from 'vue';
 import { useStore } from '../../store';
 import useNotificador from '../../hooks/notificador';
-import { EXCLUIR_PROJETO } from '@/store/tipo-mutacoes';
 import { TipoNotificacao } from '@/interfaces/INotificacao';
+import { OBTER_PROJETOS, REMOVER_PROJETO } from '@/store/tipo-acoes';
 
 export default defineComponent({
     name: 'Lista',
     methods: {
         excluir(id: string) {
             this.notificar('Projeto removido', `Projeto com identificador ${id} foi removido`, TipoNotificacao.ATENCAO);
-            this.store.commit(EXCLUIR_PROJETO, id);
+            this.store.dispatch(REMOVER_PROJETO, id);
         }
     },
     setup () {
         const store = useStore();
+        store.dispatch(OBTER_PROJETOS);
         const { notificar } = useNotificador();
         return {
             notificar,
