@@ -3,6 +3,7 @@
 - Cursos base:
     - [Vue3: explorando o framework](https://cursos.alura.com.br/course/vue3-comecando-framework)
     - [Vue3: avançando no framework](https://cursos.alura.com.br/course/vue3-avancando-framework)
+    - [Vue3: composition API e Vuex](https://cursos.alura.com.br/course/vue3-composition-api-vuex)
 
 ## Descrição
 O **Alura Tracker** é um projeto que salva as atividades realizadas por dia pelo usuário, com o tempo dessa atividade, de acordo com as informações que o usuário preenche, esses registros ficam salvos em tempo que a aplicação está sendo utilizada.
@@ -17,6 +18,9 @@ Esse é um projeto didático para apresentação geral do _framework_ **VueJS**
 - Passagem de informação entre componentes
 - Persistência de estado com o `Vuex`
 - Sistema de notificação com `mixins` e `hooks`
+- Mock de API com `json-server` e `axios`
+- Gestão de estado com `stores`
+- Modularização com `slots`
 
 ### Ferramentas auxiliares utilizadas
 - [Bulma.io](https://bulma.io/)
